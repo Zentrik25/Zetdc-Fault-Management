@@ -192,7 +192,7 @@ export default function ReportForm() {
       {err && <p className="text-sm text-red-600 bg-red-50 rounded p-2">{err}</p>}
       <div className="flex gap-3">
         <button className="btn" disabled={busy}>{busy ? "Submitting…" : "Submit fault report"}</button>
-        <Link href="/my-faults" className="btn btn-ghost">Cancel</Link>
+        <Link href="/dashboard" className="btn btn-ghost">Cancel</Link>
       </div>
     </form>
   );

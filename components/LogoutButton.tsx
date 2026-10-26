@@ -6,7 +6,7 @@ export default function LogoutButton({ variant = "bar" }: { variant?: "bar" | "d
   const router = useRouter();
   return (
     <button
-      className={variant === "drawer" ? "btn btn-ghost w-full" : "border border-white/40 rounded-md px-3 py-2 text-sm hover:bg-white/10"}
+      className={variant === "drawer" ? "btn btn-ghost w-full" : "btn btn-ghost !min-h-0 !py-2 text-sm"}
       onClick={async () => {
         await send("/api/auth/logout");
         router.push("/");

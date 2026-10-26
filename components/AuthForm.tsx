@@ -21,7 +21,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       setBusy(false);
       return;
     }
-    router.push(r.data.role === "customer" ? "/my-faults" : "/admin");
+    router.push(r.data.role === "customer" ? "/dashboard" : "/admin");
     router.refresh();
   }
 

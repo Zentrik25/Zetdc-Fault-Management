@@ -69,4 +69,4 @@ export async function requirePage(...roles: Role[]): Promise<SessionUser> {
   return u;
 }
 
-export const homeFor = (role: Role) => (role === "customer" ? "/my-faults" : "/admin");
+export const homeFor = (role: Role) => (role === "customer" ? "/dashboard" : "/admin");

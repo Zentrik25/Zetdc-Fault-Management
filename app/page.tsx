@@ -21,7 +21,7 @@ export default async function Home() {
     activeAnnouncements(),
     upcomingShedding(),
   ]);
-  const cta = user ? { href: homeFor(user.role), label: user.role === "customer" ? "Go to my faults →" : "Open control room →" } : { href: "/register", label: "Report a fault" };
+  const cta = user ? { href: homeFor(user.role), label: user.role === "customer" ? "Go to my dashboard →" : "Open control room →" } : { href: "/register", label: "Report a fault" };
   const reportHref = user?.role === "customer" ? "/report" : cta.href;
 
   return (
@@ -72,7 +72,7 @@ export default async function Home() {
       <section className="relative -mt-10 sm:-mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           [reportHref, "⚡", "Report a fault", "Takes under a minute"],
-          [user?.role === "customer" ? "/my-faults" : cta.href, "📋", "Track my faults", "Live status & timeline"],
+          [user?.role === "customer" ? "/my-faults" : cta.href, "📋", user ? "My faults" : "Track my faults", "Live status & timeline"],
           ["/outages", "🗺️", "Outage map", "See what's affected"],
           ["/load-shedding", "⏱️", "Load shedding", "Know before it happens"],
         ].map(([href, icon, t, d], i) => (

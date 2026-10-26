@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const cols: { title: string; links: [string, string][] }[] = [
-  { title: "Customers", links: [["/report", "Report a fault"], ["/my-faults", "Track my faults"], ["/outages", "Outage map"], ["/load-shedding", "Load shedding"]] },
+  { title: "Customers", links: [["/report", "Report a fault"], ["/dashboard", "My dashboard"], ["/my-faults", "My faults"], ["/outages", "Outage map"], ["/load-shedding", "Load shedding"]] },
   { title: "Account", links: [["/login", "Log in"], ["/register", "Create an account"], ["/notifications", "Notifications"]] },
   { title: "Staff", links: [["/login", "Technician & control room login"]] },
 ];
