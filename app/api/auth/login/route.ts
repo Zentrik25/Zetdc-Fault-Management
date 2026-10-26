@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import { queryOne } from "@/lib/db";
 import { createSession } from "@/lib/auth";
+import type { Role } from "@/lib/constants";
 import { body, handler, HttpError, ok } from "@/lib/http";
 
 export const POST = handler(async (req: Request) => {
@@ -14,6 +15,6 @@ export const POST = handler(async (req: Request) => {
   if (!u || !(await bcrypt.compare(password, u.password_hash)))
     throw new HttpError(401, "Wrong email or password.");
   if (!u.active) throw new HttpError(403, "This account has been deactivated. Contact ZETDC.");
-  await createSession(u.id);
+  await createSession(u.id, u.role as Role);
   return ok({ ok: true, role: u.role });
 });

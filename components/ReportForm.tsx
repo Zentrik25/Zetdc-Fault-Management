@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CITIES, FAULT_TYPES, typeLabel } from "@/lib/constants";
 import { send } from "./api";
+import { MapSkeleton } from "./Skeleton";
 
-const MapView = dynamic(() => import("./MapView"), { ssr: false, loading: () => <div className="h-[320px] bg-slate-100 rounded-xl animate-pulse" /> });
+const MapView = dynamic(() => import("./MapView"), { ssr: false, loading: () => <MapSkeleton height={320} /> });
 
 type Nearby = { id: number; ticket: string; type: string; status: string; address: string; suburb: string | null };
 

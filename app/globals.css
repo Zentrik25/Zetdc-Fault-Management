@@ -123,3 +123,13 @@ body { overflow-x: clip; }
   .anim-up, .kenburns, .float, .live-dot, .marquee-track, .bolt, .bob { animation: none !important; opacity: 1; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- skeleton loaders ---------- */
+@keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+.skeleton {
+  background: linear-gradient(90deg, #eaf0f7 30%, #f6f9fc 50%, #eaf0f7 70%);
+  background-size: 300% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }

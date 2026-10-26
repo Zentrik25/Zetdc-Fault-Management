@@ -1,9 +1,9 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createHash } from "node:crypto";
 import { SignJWT, jwtVerify } from "jose";
 import { queryOne } from "./db";
+import { secretKey } from "./secret";
 import type { Role } from "./constants";
 
 export type SessionUser = {
@@ -16,22 +16,11 @@ export type SessionUser = {
 
 const COOKIE = "zetdc_session";
 
-function secret() {
-  // On Vercel set AUTH_SECRET. If it is missing we derive one from DATABASE_URL
-  // (itself a secret) so a school deployment still works safely.
-  const s =
-    process.env.AUTH_SECRET ??
-    (process.env.DATABASE_URL
-      ? createHash("sha256").update("zetdc:" + process.env.DATABASE_URL).digest("hex")
-      : "dev-only-secret-change-me");
-  return new TextEncoder().encode(s);
-}
-
-export async function createSession(userId: number) {
-  const token = await new SignJWT({ uid: userId })
+export async function createSession(userId: number, role: Role) {
+  const token = await new SignJWT({ uid: userId, role })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("7d")
-    .sign(secret());
+    .sign(await secretKey());
   (await cookies()).set(COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
@@ -49,7 +38,7 @@ export async function getUser(): Promise<SessionUser | null> {
   const token = (await cookies()).get(COOKIE)?.value;
   if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secret());
+    const { payload } = await jwtVerify(token, await secretKey());
     const u = await queryOne<SessionUser & { active: boolean }>(
       "SELECT id, name, email, phone, role, active FROM users WHERE id=$1",
       [payload.uid],

@@ -19,6 +19,6 @@ export const POST = handler(async (req: Request) => {
     "INSERT INTO users (name,email,phone,password_hash,role) VALUES ($1,$2,$3,$4,'customer') RETURNING id",
     [name, email, phone, await bcrypt.hash(password, 10)],
   );
-  await createSession(u.id);
+  await createSession(u.id, "customer");
   return ok({ ok: true, role: "customer" }, 201);
 });
