@@ -1,0 +1,41 @@
+export type FaultRow = {
+  id: number;
+  ticket: string;
+  user_id: number;
+  type: string;
+  priority: string;
+  status: string;
+  description: string;
+  address: string;
+  suburb: string | null;
+  city: string;
+  meter_number: string | null;
+  lat: number | null;
+  lng: number | null;
+  danger: boolean;
+  assigned_to: number | null;
+  duplicate_of: number | null;
+  resolution_note: string | null;
+  rating: number | null;
+  feedback: string | null;
+  created_at: Date;
+  updated_at: Date;
+  resolved_at: Date | null;
+  reporter_name?: string;
+  reporter_phone?: string | null;
+  reporter_email?: string;
+  tech_name?: string | null;
+  followers?: number;
+};
+
+export type EventRow = {
+  id: number;
+  fault_id: number;
+  user_id: number | null;
+  kind: string;
+  internal: boolean;
+  message: string;
+  created_at: Date;
+  user_name: string | null;
+  user_role: string | null;
+};

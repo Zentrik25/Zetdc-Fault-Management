@@ -1,0 +1,63 @@
+# ZETDC Fault Management System
+
+A web app where electricity customers report faults and ZETDC staff manage and resolve them.
+Built with **Next.js (App Router) + TypeScript + Tailwind + Postgres**, ready to deploy on **Vercel**.
+
+## Features
+
+**Customers**
+- Sign up / log in (email + password — no email or SMS verification)
+- Report a fault: type, danger flag, description, address, GPS or map pin, up to 3 photos
+- Duplicate detection: faults already reported nearby can be followed ("same problem") instead of duplicated
+- Ticket number (`ZET-2026-000001`) and live progress bar + timeline
+- In-app notifications (🔔) on every update, message the crew, rate the fix, or reopen if not fixed
+- Public outage map and planned-maintenance notices (no login needed)
+
+**Admin (control room)**
+- Dashboard: open / critical / unassigned, 7-day trend, by status, type and city, crew workload, average fix time, customer rating
+- Fault queue with search and filters (status, priority, type, city, crew, overdue/SLA)
+- Change status and priority, assign a technician, add public messages or internal notes, merge duplicates
+- Fault map with priority colours, CSV export
+- User management (create technicians/admins, deactivate accounts) and announcements
+
+**Technicians**
+- See only their assigned jobs, navigate to the GPS location, mark in progress / resolved with a note
+
+## Demo accounts (created on first start)
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@zetdc.co.zw` | `Admin@123` |
+| Technician | `tech@zetdc.co.zw` | `Tech@123` |
+
+Customers sign up themselves at `/register`. **Change the admin password for any real deployment** (set `ADMIN_EMAIL` / `ADMIN_PASSWORD` before the first start).
+
+## Run locally
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+```
+
+With no `DATABASE_URL` the app uses an embedded Postgres (PGlite) saved in `./.data`, so nothing else needs installing. Tables and demo accounts are created automatically.
+
+## Deploy on Vercel
+
+1. Push this repo to GitHub and import it in Vercel.
+2. In the Vercel project go to **Storage → Create Database → Neon (Postgres)** and connect it. This sets `DATABASE_URL`.
+3. Add environment variables: `AUTH_SECRET` (any long random string), and optionally `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
+4. Deploy. The schema and admin account are created on the first request.
+
+> The embedded database is for local use only — Vercel's filesystem is not persistent, so a real `DATABASE_URL` is required there.
+
+## Project layout
+
+- `app/` — pages (`/report`, `/my-faults`, `/outages`, `/admin/...`) and API routes (`app/api/...`)
+- `lib/db.ts` — database driver, schema and seeding · `lib/auth.ts` — sessions · `lib/faults.ts` — queries
+- `components/` — UI (map, report form, staff actions, timeline …)
+
+## Notes / design decisions
+
+- Photos are resized in the browser and stored in the database (no file storage needed on Vercel).
+- Notifications are in-app instead of SMS/email, as requested.
+- Priority is set automatically (danger → critical) and each priority has an SLA target (4h/12h/24h/72h) used to flag overdue faults.

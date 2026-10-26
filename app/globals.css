@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme inline {
+  --color-brand: #0b3b8c;
+  --color-brand-dark: #072a66;
+  --color-accent: #f5b800;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: #f4f6fa;
+  color: #0f172a;
+  font-family: var(--font-sans);
+}
+
+.input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  background: white;
+  font-size: 0.95rem;
+}
+.input:focus {
+  outline: 2px solid #0b3b8c55;
+  border-color: #0b3b8c;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: #0b3b8c;
+  color: white;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:hover { background: #072a66; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-ghost { background: white; color: #0b3b8c; border: 1px solid #cbd5e1; }
+.btn-ghost:hover { background: #f1f5f9; }
+.btn-danger { background: #dc2626; }
+.btn-danger:hover { background: #b91c1c; }
+.card { background: white; border-radius: 0.9rem; border: 1px solid #e2e8f0; padding: 1.1rem; }
+.label { display: block; font-size: 0.8rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem; }
+.leaflet-container { z-index: 0; border-radius: 0.75rem; }
