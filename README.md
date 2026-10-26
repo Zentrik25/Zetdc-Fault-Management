@@ -6,6 +6,7 @@ Built with **Next.js (App Router) + TypeScript + Tailwind + Postgres**, ready to
 ## Features
 
 **Customers**
+- Left sidebar navigation (hamburger drawer on phones), Settings page (profile, password)
 - Personal dashboard (open/resolved counts, active faults, recent updates, load shedding for your area)
 - Sign up / log in (email + password — no email or SMS verification)
 - Report a fault: type, danger flag, description, address, GPS or map pin, up to 3 photos

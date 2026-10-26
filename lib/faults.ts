@@ -1,6 +1,7 @@
 import "server-only";
 import { query, queryOne } from "./db";
 import { isOverdue } from "./constants";
+import { getSettings } from "./settings";
 import type { SessionUser } from "./auth";
 import type { EventRow, FaultRow } from "./types";
 
@@ -82,6 +83,7 @@ export async function listFaults(user: SessionUser, filters: ListFilters = {}, l
       `(f.ticket ILIKE ${n} OR f.address ILIKE ${n} OR f.suburb ILIKE ${n} OR f.description ILIKE ${n} OR ru.name ILIKE ${n} OR f.meter_number ILIKE ${n})`,
     );
   }
+  const sla = filters.overdue ? (await getSettings()).sla : undefined;
   p.push(limit);
   const rows = await query<FaultRow>(
     `${FAULT_SELECT} ${where.length ? "WHERE " + where.join(" AND ") : ""}
@@ -90,7 +92,7 @@ export async function listFaults(user: SessionUser, filters: ListFilters = {}, l
      LIMIT $${p.length}`,
     p,
   );
-  return filters.overdue ? rows.filter((r) => isOverdue(r)) : rows;
+  return filters.overdue ? rows.filter((r) => isOverdue(r, sla)) : rows;
 }
 
 export async function getStats() {

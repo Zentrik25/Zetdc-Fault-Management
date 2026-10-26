@@ -83,6 +83,10 @@ CREATE TABLE IF NOT EXISTS notifications (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS notifications_user_idx ON notifications(user_id, read);
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS load_shedding (
   id SERIAL PRIMARY KEY,
   city TEXT NOT NULL,

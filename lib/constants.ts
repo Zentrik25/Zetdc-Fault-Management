@@ -93,14 +93,17 @@ export function defaultPriority(type: string, danger: boolean): Priority {
   return "low";
 }
 
-export function isOverdue(f: {
-  status: string;
-  priority: string;
-  created_at: Date | string;
-}) {
+export function isOverdue(
+  f: {
+    status: string;
+    priority: string;
+    created_at: Date | string;
+  },
+  sla: Record<string, number> = SLA_HOURS,
+) {
   if (!OPEN_STATUSES.includes(f.status)) return false;
   const hrs = (Date.now() - new Date(f.created_at).getTime()) / 36e5;
-  return hrs > (SLA_HOURS[f.priority] ?? 24);
+  return hrs > (sla[f.priority] ?? 24);
 }
 
 export function timeAgo(d: Date | string) {

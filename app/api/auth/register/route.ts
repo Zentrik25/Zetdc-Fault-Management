@@ -2,8 +2,10 @@ import bcrypt from "bcryptjs";
 import { query, queryOne } from "@/lib/db";
 import { createSession } from "@/lib/auth";
 import { body, handler, HttpError, ok, str } from "@/lib/http";
+import { getSettings } from "@/lib/settings";
 
 export const POST = handler(async (req: Request) => {
+  if (!(await getSettings()).registrationOpen) throw new HttpError(403, "New sign-ups are currently closed. Please contact ZETDC.");
   const b = await body(req);
   const name = str(b.name, "Name", { min: 2, max: 80 })!;
   const email = str(b.email, "Email", { max: 120 })!.toLowerCase();

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { isOverdue, timeAgo, typeIcon, typeLabel } from "@/lib/constants";
 import type { FaultRow } from "@/lib/types";
+import { getSettings } from "@/lib/settings";
 import { PriorityBadge, StatusBadge } from "./ui";
 
-export default function FaultList({ faults, base, staff = false }: { faults: FaultRow[]; base: string; staff?: boolean }) {
+export default async function FaultList({ faults, base, staff = false }: { faults: FaultRow[]; base: string; staff?: boolean }) {
+  const { sla } = await getSettings();
   if (!faults.length) return <div className="card text-center text-slate-500 py-10">No faults to show.</div>;
   return (
     <div className="space-y-2">
@@ -14,7 +16,7 @@ export default function FaultList({ faults, base, staff = false }: { faults: Fau
             <div className="font-semibold">
               {typeLabel(f.type)} <span className="text-slate-400 font-normal text-sm">· {f.ticket}</span>
               {f.danger && <span className="ml-2 text-xs bg-red-600 text-white rounded px-1.5 py-0.5">DANGER</span>}
-              {isOverdue(f) && <span className="ml-2 text-xs bg-orange-500 text-white rounded px-1.5 py-0.5">OVERDUE</span>}
+              {isOverdue(f, sla) && <span className="ml-2 text-xs bg-orange-500 text-white rounded px-1.5 py-0.5">OVERDUE</span>}
             </div>
             <div className="text-sm text-slate-600 truncate">
               {f.suburb ? `${f.suburb}, ` : ""}{f.city} — {f.address}

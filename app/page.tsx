@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getUser, homeFor } from "@/lib/auth";
 import { query } from "@/lib/db";
 import { FAULT_TYPES } from "@/lib/constants";
@@ -21,8 +22,9 @@ export default async function Home() {
     activeAnnouncements(),
     upcomingShedding(),
   ]);
-  const cta = user ? { href: homeFor(user.role), label: user.role === "customer" ? "Go to my dashboard →" : "Open control room →" } : { href: "/register", label: "Report a fault" };
-  const reportHref = user?.role === "customer" ? "/report" : cta.href;
+  if (user) redirect(homeFor(user.role)); // logged-in users use their dashboard, not the landing page
+  const cta = { href: "/register", label: "Report a fault" };
+  const reportHref = cta.href;
 
   return (
     <div className="-mt-6">
@@ -72,7 +74,7 @@ export default async function Home() {
       <section className="relative -mt-10 sm:-mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           [reportHref, "⚡", "Report a fault", "Takes under a minute"],
-          [user?.role === "customer" ? "/my-faults" : cta.href, "📋", user ? "My faults" : "Track my faults", "Live status & timeline"],
+          [cta.href, "📋", "Track my faults", "Live status & timeline"],
           ["/outages", "🗺️", "Outage map", "See what's affected"],
           ["/load-shedding", "⏱️", "Load shedding", "Know before it happens"],
         ].map(([href, icon, t, d], i) => (
@@ -207,7 +209,7 @@ export default async function Home() {
           <h2 className="relative text-2xl sm:text-4xl font-light !text-white">Power cut? Don&apos;t wait in the dark.</h2>
           <p className="relative mt-3 text-blue-100 max-w-lg mx-auto">Report it now and the nearest crew will be on its way. It takes less than a minute.</p>
           <Link href={reportHref} className="relative btn !bg-white !text-brand hover:!bg-blue-50 !px-8 !py-3 text-base mt-6 shadow-lg">
-            <span className="bolt">⚡</span> {user ? "Report a fault" : "Get started — it's free"}
+            <span className="bolt">⚡</span> Get started — it&apos;s free
           </Link>
         </div>
       </Reveal>
