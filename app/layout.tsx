@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "ZETDC Fault Management",
   description: "Report and track electricity faults across Zimbabwe.",
+  appleWebApp: { capable: true, title: "ZETDC Faults", statusBarStyle: "default" },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b3b8c",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

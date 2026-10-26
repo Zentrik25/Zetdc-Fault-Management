@@ -14,13 +14,14 @@ body {
   font-family: var(--font-sans);
 }
 
+@layer components {
 .input {
   width: 100%;
   border: 1px solid #cbd5e1;
   border-radius: 0.5rem;
   padding: 0.55rem 0.75rem;
   background: white;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .input:focus {
   outline: 2px solid #0b3b8c55;
@@ -48,4 +49,15 @@ body {
 .btn-danger:hover { background: #b91c1c; }
 .card { background: white; border-radius: 0.9rem; border: 1px solid #e2e8f0; padding: 1.1rem; }
 .label { display: block; font-size: 0.8rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem; }
+}
+
 .leaflet-container { z-index: 0; border-radius: 0.75rem; }
+
+.btn { min-height: 2.5rem; }
+@media (max-width: 640px) {
+  .btn { min-height: 2.75rem; }
+  .card { padding: 0.9rem; }
+}
+html { -webkit-text-size-adjust: 100%; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

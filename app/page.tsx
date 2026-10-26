@@ -18,7 +18,8 @@ export default async function Home() {
   return (
     <div className="space-y-8">
       <section className="bg-brand text-white rounded-2xl p-8 sm:p-12 relative overflow-hidden">
-        <div className="absolute -right-10 -top-10 text-[14rem] opacity-10 select-none">⚡</div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="" aria-hidden className="absolute -right-16 -bottom-16 w-72 sm:w-96 opacity-10 select-none pointer-events-none" />
         <h1 className="text-3xl sm:text-5xl font-extrabold max-w-2xl leading-tight">No power? Report it. Track it. Get it fixed.</h1>
         <p className="mt-4 max-w-xl text-blue-100">
           Report electricity faults to ZETDC in under a minute — drop a pin on the map, add a photo, and follow the crew&apos;s progress in real time.
