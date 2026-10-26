@@ -11,7 +11,7 @@ Built with **Next.js (App Router) + TypeScript + Tailwind + Postgres**, ready to
 - Duplicate detection: faults already reported nearby can be followed ("same problem") instead of duplicated
 - Ticket number (`ZET-2026-000001`) and live progress bar + timeline
 - In-app notifications (🔔) on every update, message the crew, rate the fix, or reopen if not fixed
-- Public outage map and planned-maintenance notices (no login needed)
+- Public outage map, planned-maintenance notices and load shedding schedules (no login needed)
 
 **Admin (control room)**
 - Dashboard: open / critical / unassigned, 7-day trend, by status, type and city, crew workload, average fix time, customer rating
@@ -41,14 +41,16 @@ npm run dev        # http://localhost:3000
 
 With no `DATABASE_URL` the app uses an embedded Postgres (PGlite) saved in `./.data`, so nothing else needs installing. Tables and demo accounts are created automatically.
 
-## Deploy on Vercel
+## Deploy on Vercel with Supabase
 
-1. Push this repo to GitHub and import it in Vercel.
-2. In the Vercel project go to **Storage → Create Database → Neon (Postgres)** and connect it. This sets `DATABASE_URL`.
-3. Add environment variables: `AUTH_SECRET` (any long random string), and optionally `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
-4. Deploy. The schema and admin account are created on the first request.
+1. **Supabase:** create a project → click **Connect** → copy the **Transaction pooler** connection string (port `6543`). Replace `[YOUR-PASSWORD]` with your database password (URL-encode special characters, e.g. `@` → `%40`).
+2. **Vercel:** push this repo to GitHub and import it in Vercel. Under *Settings → Environment Variables* add:
+   - `DATABASE_URL` = the Supabase connection string
+   - `AUTH_SECRET` = any long random string (`openssl rand -hex 32`)
+   - optional `ADMIN_EMAIL` / `ADMIN_PASSWORD` for the first admin account
+3. Deploy. Tables and the admin account are created automatically on the first request — no SQL to run.
 
-> The embedded database is for local use only — Vercel's filesystem is not persistent, so a real `DATABASE_URL` is required there.
+> Any other Postgres (Neon, Vercel Postgres, Railway…) works the same way. The embedded database is for local use only because Vercel's filesystem is not persistent.
 
 ## Project layout
 

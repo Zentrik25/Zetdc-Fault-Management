@@ -114,21 +114,29 @@ async function createDriver(): Promise<Driver> {
   if (url) {
     const { Pool } = await import("pg");
     const local = /localhost|127\.0\.0\.1/.test(url);
+    // Supabase/Neon URLs often carry ?sslmode=require; pg would then verify the
+    // certificate chain strictly, so we strip it and set ssl ourselves.
+    const cleaned = url.replace(/([?&])sslmode=[^&]*&?/, "$1").replace(/[?&]$/, "");
     const pool = new Pool({
-      connectionString: url,
+      connectionString: cleaned,
       max: 3,
       ssl: local ? undefined : { rejectUnauthorized: false },
     });
     return {
       query: async (sql, params) => (await pool.query(sql, params as any[])).rows, // eslint-disable-line @typescript-eslint/no-explicit-any
       exec: async (sql) => {
-        // Advisory lock so concurrent cold starts don't race while migrating.
+        // Transaction-scoped advisory lock: safe with Supabase's pooled connections
+        // and stops concurrent cold starts racing while the schema is created.
         const client = await pool.connect();
         try {
-          await client.query("SELECT pg_advisory_lock(727272)");
+          await client.query("BEGIN");
+          await client.query("SELECT pg_advisory_xact_lock(727272)");
           await client.query(sql);
+          await client.query("COMMIT");
+        } catch (e) {
+          await client.query("ROLLBACK").catch(() => {});
+          throw e;
         } finally {
-          await client.query("SELECT pg_advisory_unlock(727272)").catch(() => {});
           client.release();
         }
       },
