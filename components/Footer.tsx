@@ -41,7 +41,11 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-xs text-white/60">
+        <p className="mt-10 text-xs text-white/50 max-w-3xl leading-relaxed">
+          Academic project: this system was built as a third-year project and is not affiliated with, endorsed by or operated by ZETDC.
+          Do not use it to report real emergencies.
+        </p>
+        <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-xs text-white/60">
           <div>© 2026 ZETDC Fault Management System. All rights reserved.</div>
           <div>
             Powered by <span className="text-white font-normal">Tafadzwa Samupindi</span> · 2026

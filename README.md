@@ -52,6 +52,15 @@ With no `DATABASE_URL` the app uses an embedded Postgres (PGlite) saved in `./.d
 
 > Any other Postgres (Neon, Vercel Postgres, Railway…) works the same way. The embedded database is for local use only because Vercel's filesystem is not persistent.
 
+## Custom domain (faults.emura.co.zw)
+
+1. Vercel → your project → **Settings → Domains → Add** → `faults.emura.co.zw`.
+2. At your DNS provider for `emura.co.zw`, create a record for the subdomain:
+   `CNAME  faults  →  cname.vercel-dns.com` (use the exact value Vercel shows).
+3. Wait for DNS to propagate (minutes to a few hours). Vercel issues the HTTPS certificate automatically.
+4. Verify: open `https://faults.emura.co.zw/api/health` — it should return `{"status":"ok","database":"connected",...}`.
+5. Optional: set `NEXT_PUBLIC_SITE_URL=https://faults.emura.co.zw` so link previews use the right address.
+
 ## Project layout
 
 - `app/` — pages (`/report`, `/my-faults`, `/outages`, `/admin/...`) and API routes (`app/api/...`)

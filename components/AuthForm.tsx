@@ -57,6 +57,9 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
         />
       </div>
       {err && <p className="text-sm text-red-600 bg-red-50 rounded p-2">{err}</p>}
+      {mode === "register" && (
+        <p className="text-xs text-muted">Academic project, not affiliated with ZETDC. Please do not use it to report real emergencies.</p>
+      )}
       <button className="btn w-full" disabled={busy}>
         {busy ? "Please wait…" : mode === "login" ? "Log in" : "Sign up"}
       </button>

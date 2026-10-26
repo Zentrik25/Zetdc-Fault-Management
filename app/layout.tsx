@@ -4,8 +4,10 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://faults.emura.co.zw"),
   title: "ZETDC Fault Management",
   description: "Report and track electricity faults across Zimbabwe.",
+  openGraph: { title: "ZETDC Fault Management", description: "Report and track electricity faults across Zimbabwe.", images: ["/hero.jpg"], type: "website" },
   appleWebApp: { capable: true, title: "ZETDC Faults", statusBarStyle: "default" },
 };
 
