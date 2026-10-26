@@ -16,6 +16,7 @@ export default async function Nav() {
           ["/report", "Report fault"],
           ["/my-faults", "My faults"],
           ["/outages", "Outage map"],
+          ["/load-shedding", "Load shedding"],
         ]
       : user
         ? [
@@ -26,10 +27,14 @@ export default async function Nav() {
               ? [
                   ["/admin/users", "Users"],
                   ["/admin/announcements", "Announcements"],
+                  ["/admin/load-shedding", "Load shedding"],
                 ]
               : []),
           ]
-        : [["/outages", "Outage map"]];
+        : [
+          ["/outages", "Outage map"],
+          ["/load-shedding", "Load shedding"],
+        ];
   return (
     <header className="bg-brand text-white shadow sticky top-0 z-40">
       <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center gap-3">

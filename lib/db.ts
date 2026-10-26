@@ -83,6 +83,19 @@ CREATE TABLE IF NOT EXISTS notifications (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS notifications_user_idx ON notifications(user_id, read);
+CREATE TABLE IF NOT EXISTS load_shedding (
+  id SERIAL PRIMARY KEY,
+  city TEXT NOT NULL,
+  area TEXT NOT NULL,
+  shed_date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  stage INT,
+  note TEXT,
+  created_by INT REFERENCES users(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS load_shedding_date_idx ON load_shedding(shed_date);
 CREATE TABLE IF NOT EXISTS announcements (
   id SERIAL PRIMARY KEY,
   kind TEXT NOT NULL DEFAULT 'planned',

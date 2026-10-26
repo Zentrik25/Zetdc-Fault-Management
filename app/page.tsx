@@ -34,6 +34,7 @@ export default async function Home() {
             </>
           )}
           <Link href="/outages" className="btn btn-ghost">View outage map</Link>
+          <Link href="/load-shedding" className="btn btn-ghost">Load shedding</Link>
         </div>
       </section>
 
