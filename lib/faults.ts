@@ -51,6 +51,7 @@ export type ListFilters = {
   city?: string;
   q?: string;
   assigned?: string; // "me" | "none" | id
+  qTypes?: string[]; // fault types whose label matched the search text
   overdue?: boolean;
 };
 
@@ -79,8 +80,13 @@ export async function listFaults(user: SessionUser, filters: ListFilters = {}, l
   if (filters.q) {
     p.push(`%${filters.q}%`);
     const n = `$${p.length}`;
+    let typeClause = "";
+    if (filters.qTypes?.length) {
+      p.push(filters.qTypes);
+      typeClause = ` OR f.type = ANY($${p.length})`;
+    }
     where.push(
-      `(f.ticket ILIKE ${n} OR f.address ILIKE ${n} OR f.suburb ILIKE ${n} OR f.description ILIKE ${n} OR ru.name ILIKE ${n} OR f.meter_number ILIKE ${n})`,
+      `(f.ticket ILIKE ${n} OR f.address ILIKE ${n} OR f.suburb ILIKE ${n} OR f.city ILIKE ${n} OR f.description ILIKE ${n} OR ru.name ILIKE ${n} OR f.meter_number ILIKE ${n}${typeClause})`,
     );
   }
   const sla = filters.overdue ? (await getSettings()).sla : undefined;

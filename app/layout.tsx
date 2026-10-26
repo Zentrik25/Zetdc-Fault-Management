@@ -3,6 +3,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getUser } from "@/lib/auth";
+import SearchBar from "@/components/SearchBar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://faults.emura.co.zw"),
@@ -26,6 +27,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Nav user={user} />
         {/* Logged-in pages sit to the right of the fixed 16rem sidebar on computers */}
         <div className={`min-h-screen flex flex-col ${user ? "lg:pl-64" : ""}`}>
+          {user && (
+            <div className="lg:sticky lg:top-0 z-30 bg-white/85 backdrop-blur-md border-b border-line">
+              <div className="max-w-6xl mx-auto px-4 py-2.5"><SearchBar /></div>
+            </div>
+          )}
           <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6">{children}</main>
           <Footer />
         </div>

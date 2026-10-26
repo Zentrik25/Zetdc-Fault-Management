@@ -5,16 +5,19 @@ import { NewUserForm, ToggleActive } from "@/components/UserAdmin";
 
 type U = { id: number; name: string; email: string; phone: string | null; role: string; active: boolean; created_at: Date; faults: number };
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const me = await requirePage("admin");
+  const q = (await searchParams).q?.trim();
   const users = await query<U>(
     `SELECT u.id,u.name,u.email,u.phone,u.role,u.active,u.created_at,
        (SELECT count(*)::int FROM faults f WHERE f.user_id=u.id OR f.assigned_to=u.id) AS faults
-     FROM users u ORDER BY (u.role='customer'), u.role, u.created_at DESC LIMIT 500`,
+     FROM users u ${q ? "WHERE u.name ILIKE $1 OR u.email ILIKE $1 OR u.phone ILIKE $1 OR u.role ILIKE $1" : ""}
+     ORDER BY (u.role='customer'), u.role, u.created_at DESC LIMIT 500`,
+    q ? [`%${q}%`] : [],
   );
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-light">Users</h1>
+      <h1 className="text-2xl font-light">Users{q && <span className="text-base text-muted"> · matching “{q}”</span>}</h1>
       <NewUserForm />
       <div className="card overflow-x-auto p-0">
         <table className="w-full text-sm">

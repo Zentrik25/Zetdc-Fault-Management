@@ -8,7 +8,7 @@ export default function LogoutButton({ variant = "bar" }: { variant?: "bar" | "d
     <button
       className={
         variant === "sidebar"
-          ? "flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-[15px] text-white/75 hover:bg-white/8 hover:text-white"
+          ? "flex w-full items-center justify-center gap-2 rounded-md bg-white/6 px-2 py-2 text-[13px] text-white/80 hover:bg-ruby/80 hover:text-white"
           : variant === "drawer"
             ? "btn btn-ghost w-full"
             : "btn btn-ghost !min-h-0 !py-2 text-sm"
@@ -19,7 +19,7 @@ export default function LogoutButton({ variant = "bar" }: { variant?: "bar" | "d
         router.refresh();
       }}
     >
-      {variant === "sidebar" && <span className="w-6 text-center text-base">↪️</span>}
+      {variant === "sidebar" && <span aria-hidden>↪️</span>}
       Log out
     </button>
   );

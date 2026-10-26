@@ -22,15 +22,21 @@ function Brand() {
   );
 }
 
-/** Dark indigo panel shared by the desktop sidebar and the phone drawer. */
+/** Dark indigo panel shared by the desktop sidebar and the phone drawer.
+ *  Sized to fit without a scrollbar on normal screens; very short screens just tighten further. */
 function SidebarBody({ user, unread, groups, pathname, onClose }: { user: User; unread: number; groups: Group[]; pathname: string; onClose?: () => void }) {
+  const row = "relative flex items-center gap-3 rounded-md px-3 py-2 text-[14px] transition-colors [@media(max-height:680px)]:py-1.5";
+  const on = "bg-white/12 text-white";
+  const off = "text-white/75 hover:bg-white/8 hover:text-white";
+  const bar = <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-accent" />;
+  const settingsActive = isActive(pathname, "/settings");
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-brand-dark to-[#0a1848] text-white">
-      <div className="flex items-center gap-3 px-5 pt-5 pb-4">
+      <div className="flex items-center gap-3 px-4 pt-4 pb-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.png" alt="ZETDC logo" className="h-11 w-11 rounded-full ring-2 ring-white/20" />
+        <img src="/logo.png" alt="ZETDC logo" className="h-10 w-10 rounded-full ring-2 ring-white/20" />
         <div className="min-w-0 flex-1 leading-tight">
-          <div className="text-lg font-normal tracking-tight">ZETDC</div>
+          <div className="text-base font-normal tracking-tight">ZETDC</div>
           <div className="text-[11px] text-white/60">Fault Management</div>
         </div>
         {onClose && (
@@ -38,24 +44,19 @@ function SidebarBody({ user, unread, groups, pathname, onClose }: { user: User; 
         )}
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 pb-4 space-y-5" aria-label="Main">
+      <nav className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-2.5 pb-2 space-y-3" aria-label="Main">
         {groups.map((g) => (
           <div key={g.title}>
-            <div className="px-3 pb-1.5 text-[10px] uppercase tracking-[0.18em] text-white/45">{g.title}</div>
-            <div className="space-y-0.5">
+            <div className="px-3 pb-1 text-[10px] uppercase tracking-[0.18em] text-white/45">{g.title}</div>
+            <div className="space-y-px">
               {g.links.map(([href, label, icon]) => {
                 const active = isActive(pathname, href);
                 return (
-                  <Link
-                    key={href + label}
-                    href={href}
-                    aria-current={active ? "page" : undefined}
-                    className={`group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-[15px] transition-colors ${active ? "bg-white/12 text-white" : "text-white/75 hover:bg-white/8 hover:text-white"}`}
-                  >
-                    {active && <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-accent" />}
-                    <span className="w-6 text-center text-base">{icon}</span>
-                    <span className="flex-1">{label}</span>
-                    {href === "/notifications" && unread > 0 && <span className="bg-ruby text-white text-[11px] leading-none rounded-full px-2 py-1">{unread}</span>}
+                  <Link key={href + label} href={href} aria-current={active ? "page" : undefined} className={`${row} ${active ? on : off}`}>
+                    {active && bar}
+                    <span className="w-5 text-center text-[15px]">{icon}</span>
+                    <span className="flex-1 truncate">{label}</span>
+                    {href === "/notifications" && unread > 0 && <span className="bg-ruby text-white text-[11px] leading-none rounded-full px-1.5 py-1">{unread}</span>}
                   </Link>
                 );
               })}
@@ -64,22 +65,19 @@ function SidebarBody({ user, unread, groups, pathname, onClose }: { user: User; 
         ))}
       </nav>
 
-      <div className="border-t border-white/10 p-3 space-y-1">
-        <Link
-          href="/settings"
-          aria-current={isActive(pathname, "/settings") ? "page" : undefined}
-          className={`relative flex items-center gap-3 rounded-md px-3 py-2.5 text-[15px] ${isActive(pathname, "/settings") ? "bg-white/12 text-white" : "text-white/75 hover:bg-white/8 hover:text-white"}`}
-        >
-          {isActive(pathname, "/settings") && <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r bg-accent" />}
-          <span className="w-6 text-center text-base">⚙️</span> Settings
-        </Link>
-        <LogoutButton variant="sidebar" />
-        <div className="mt-2 flex items-center gap-3 rounded-lg bg-white/8 px-3 py-2.5">
-          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-ruby to-accent text-sm font-normal text-white">{initials(user.name)}</div>
+      <div className="border-t border-white/10 p-2.5 space-y-2">
+        <div className="flex items-center gap-2.5 rounded-lg bg-white/8 px-2.5 py-2">
+          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-ruby to-accent text-xs font-normal text-white">{initials(user.name)}</div>
           <div className="min-w-0 leading-tight">
-            <div className="truncate text-sm">{user.name}</div>
+            <div className="truncate text-[13px]">{user.name}</div>
             <div className="text-[11px] capitalize text-white/55">{user.role}</div>
           </div>
+        </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          <Link href="/settings" aria-current={settingsActive ? "page" : undefined} className={`flex items-center justify-center gap-2 rounded-md px-2 py-2 text-[13px] ${settingsActive ? on : "bg-white/6 text-white/80 hover:bg-white/12 hover:text-white"}`}>
+            <span aria-hidden>⚙️</span> Settings
+          </Link>
+          <LogoutButton variant="sidebar" />
         </div>
       </div>
     </div>
