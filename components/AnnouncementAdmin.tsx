@@ -24,7 +24,7 @@ export function NewAnnouncement() {
         router.refresh();
       }}
     >
-      <h2 className="font-semibold sm:col-span-2">Publish a notice</h2>
+      <h2 className="font-normal sm:col-span-2">Publish a notice</h2>
       <select className="input" value={f.kind} onChange={up("kind")}>
         <option value="planned">Planned maintenance</option>
         <option value="alert">Emergency / alert</option>

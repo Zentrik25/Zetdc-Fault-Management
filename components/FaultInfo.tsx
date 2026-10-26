@@ -24,12 +24,12 @@ export default function FaultInfo({ f, photos, staff }: { f: FaultRow; photos: n
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <div className="text-xs text-slate-500">{f.ticket}</div>
-          <h1 className="text-xl font-bold">{typeIcon(f.type)} {typeLabel(f.type)}</h1>
+          <h1 className="text-xl font-light">{typeIcon(f.type)} {typeLabel(f.type)}</h1>
         </div>
         <div className="flex gap-2 items-center">
           {f.danger && <span className="text-xs bg-red-600 text-white rounded px-2 py-1 font-bold">DANGER</span>}
           {staff && <PriorityBadge priority={f.priority} />}
-          <span className={`text-xs font-semibold rounded-full px-2.5 py-0.5 ${STATUS_COLOR[f.status]}`}>{STATUS_LABEL[f.status]}</span>
+          <span className={`text-xs font-medium rounded px-2 py-0.5 ${STATUS_COLOR[f.status]}`}>{STATUS_LABEL[f.status]}</span>
         </div>
       </div>
       <ProgressBar status={f.status} />

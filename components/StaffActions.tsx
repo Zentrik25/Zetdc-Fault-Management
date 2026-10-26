@@ -53,7 +53,7 @@ export default function StaffActions({
   return (
     <div className="space-y-4">
       <div className="card space-y-3">
-        <h2 className="font-semibold">Manage fault</h2>
+        <h2 className="font-normal">Manage fault</h2>
         <div className="grid sm:grid-cols-3 gap-3">
           <div>
             <label className="label">Status</label>
@@ -106,7 +106,7 @@ export default function StaffActions({
 
       {isAdmin && duplicateCandidates.length > 0 && (
         <div className="card space-y-2">
-          <h2 className="font-semibold">Merge duplicate</h2>
+          <h2 className="font-normal">Merge duplicate</h2>
           <p className="text-xs text-slate-500">If this is the same problem as another open fault, merge it. The customer will follow the original.</p>
           <div className="flex gap-2">
             <select className="input" value={dup} onChange={(e) => setDup(e.target.value)}>

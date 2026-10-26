@@ -25,7 +25,7 @@ export function NewShedding() {
         router.refresh();
       }}
     >
-      <h2 className="font-semibold sm:col-span-2">Add a load shedding slot</h2>
+      <h2 className="font-normal sm:col-span-2">Add a load shedding slot</h2>
       <select className="input" value={f.city} onChange={up("city")}>{CITIES.map((c) => <option key={c}>{c}</option>)}</select>
       <input className="input" placeholder="Area / suburb (e.g. Avondale)" value={f.area} onChange={up("area")} required />
       <div><label className="label">Date</label><input type="date" className="input" value={f.shed_date} onChange={up("shed_date")} required /></div>

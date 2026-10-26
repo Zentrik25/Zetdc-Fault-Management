@@ -14,7 +14,7 @@ export default async function Page() {
   const hasUnread = rows.some((r) => !r.read);
   return (
     <div className="max-w-2xl mx-auto space-y-3">
-      <h1 className="text-2xl font-bold">Notifications</h1>
+      <h1 className="text-2xl font-light">Notifications</h1>
       {hasUnread && <MarkRead />}
       {rows.length === 0 && <div className="card text-slate-500 text-center py-8">Nothing yet.</div>}
       {rows.map((n) => (

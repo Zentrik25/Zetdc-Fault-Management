@@ -21,7 +21,7 @@ export default async function Page() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-bold">Live outage &amp; fault map</h1>
+        <h1 className="text-2xl font-light">Live outage &amp; fault map</h1>
         <p className="text-slate-600 text-sm">Active faults reported across Zimbabwe. {faults.length} open right now. Red = critical, orange = high, yellow = medium, grey = low.</p>
       </div>
       <Announcements items={notices} />

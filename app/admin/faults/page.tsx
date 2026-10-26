@@ -24,7 +24,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Rec
   const techs = u.role === "admin" ? await query<{ id: number; name: string }>("SELECT id, name FROM users WHERE role='technician' AND active ORDER BY name") : [];
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">{u.role === "admin" ? "All faults" : "My assigned faults"} <span className="text-slate-400 text-base font-normal">({faults.length})</span></h1>
+      <h1 className="text-2xl font-light">{u.role === "admin" ? "All faults" : "My assigned faults"} <span className="text-slate-400 text-base font-normal">({faults.length})</span></h1>
       <form className="card flex flex-wrap gap-2 items-center">
         <input name="q" defaultValue={sp.q ?? ""} placeholder="Search ticket, address, customer…" className="input !w-64" />
         <FilterSelect sp={sp} name="status" label="Any status" opts={[["open", "All open"], ...STATUSES.map((s): [string, string] => [s, STATUS_LABEL[s]])]} />

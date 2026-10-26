@@ -5,7 +5,7 @@ export default function Announcements({ items }: { items: Announcement[] }) {
   if (!items.length) return null;
   return (
     <section className="space-y-2">
-      <h2 className="font-semibold text-lg">📢 Notices</h2>
+      <h2 className="font-normal text-lg">📢 Notices</h2>
       {items.map((a) => (
         <div key={a.id} className={`rounded-xl border p-3 text-sm ${a.kind === "alert" ? "bg-red-50 border-red-300" : "bg-amber-50 border-amber-300"}`}>
           <div className="font-semibold">

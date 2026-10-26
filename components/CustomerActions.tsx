@@ -29,7 +29,7 @@ export default function CustomerActions({
     <div className="space-y-4">
       {isOwner && status === "resolved" && (
         <div className="card space-y-3 border-emerald-300">
-          <h3 className="font-semibold">Was the fault fixed?</h3>
+          <h3 className="font-normal">Was the fault fixed?</h3>
           {rating ? (
             <p className="text-sm">Thanks for rating: {"⭐".repeat(rating)}</p>
           ) : (

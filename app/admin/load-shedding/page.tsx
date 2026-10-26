@@ -7,7 +7,7 @@ export default async function Page() {
   const rows = await upcomingShedding();
   return (
     <div className="space-y-4 max-w-3xl">
-      <h1 className="text-2xl font-bold">Load shedding schedule</h1>
+      <h1 className="text-2xl font-light">Load shedding schedule</h1>
       <p className="text-sm text-slate-600">Slots appear for customers on the Load shedding page. Past dates hide automatically.</p>
       <NewShedding />
       {rows.length === 0 && <div className="card text-slate-500 text-center py-6">No upcoming slots.</div>}

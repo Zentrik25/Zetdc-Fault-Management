@@ -14,7 +14,7 @@ export default async function Page() {
   );
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Users</h1>
+      <h1 className="text-2xl font-light">Users</h1>
       <NewUserForm />
       <div className="card overflow-x-auto p-0">
         <table className="w-full text-sm">

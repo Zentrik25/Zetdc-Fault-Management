@@ -23,7 +23,7 @@ export function NewUserForm() {
         router.refresh();
       }}
     >
-      <h2 className="font-semibold sm:col-span-3">Add technician / admin</h2>
+      <h2 className="font-normal sm:col-span-3">Add technician / admin</h2>
       <input className="input" placeholder="Full name" value={f.name} onChange={up("name")} required />
       <input className="input" type="email" placeholder="Email" value={f.email} onChange={up("email")} required />
       <input className="input" placeholder="Phone" value={f.phone} onChange={up("phone")} />

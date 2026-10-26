@@ -24,7 +24,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       <FaultInfo f={f} photos={photos} />
       <CustomerActions faultId={f.id} status={f.status} rating={f.rating} isOwner={f.user_id === u.id} />
       <div className="card">
-        <h2 className="font-semibold mb-3">Updates</h2>
+        <h2 className="font-normal mb-3">Updates</h2>
         <Timeline events={events} />
       </div>
     </div>

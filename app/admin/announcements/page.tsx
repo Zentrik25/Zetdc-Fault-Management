@@ -9,7 +9,7 @@ export default async function Page() {
   const items = await query<Announcement>("SELECT * FROM announcements ORDER BY created_at DESC LIMIT 50");
   return (
     <div className="space-y-4 max-w-3xl">
-      <h1 className="text-2xl font-bold">Announcements</h1>
+      <h1 className="text-2xl font-light">Announcements</h1>
       <p className="text-sm text-slate-600">Notices appear on the home page and outage map for all customers.</p>
       <NewAnnouncement />
       {items.map((a) => {

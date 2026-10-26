@@ -10,7 +10,7 @@ export default async function Page() {
   const pins = faults.map((f) => toPin(f, `/admin/faults/${f.id}`)).filter((p): p is NonNullable<typeof p> => !!p);
   return (
     <div className="space-y-3">
-      <h1 className="text-2xl font-bold">Fault map <span className="text-base font-normal text-slate-500">({pins.length} open with GPS)</span></h1>
+      <h1 className="text-2xl font-light">Fault map <span className="text-base font-normal text-slate-500">({pins.length} open with GPS)</span></h1>
       <p className="text-sm text-slate-600">Click a marker to open the fault. Red = critical, orange = high, yellow = medium, grey = low. Clusters of markers show hotspots. <Link className="text-brand underline" href="/admin/faults?status=open">Switch to list</Link></p>
       <FaultsMap pins={pins} height={560} />
     </div>

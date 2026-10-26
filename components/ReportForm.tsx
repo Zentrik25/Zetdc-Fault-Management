@@ -105,12 +105,12 @@ export default function ReportForm() {
   return (
     <form onSubmit={submit} className="space-y-5 max-w-3xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold">Report a fault</h1>
+        <h1 className="text-2xl font-light">Report a fault</h1>
         <p className="text-slate-600 text-sm">Tell us what is wrong and where. You will get a ticket number to track progress.</p>
       </div>
 
       <section className="card space-y-3">
-        <h2 className="font-semibold">1. What is the problem?</h2>
+        <h2 className="font-normal">1. What is the problem?</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {FAULT_TYPES.map((t) => (
             <button
@@ -134,7 +134,7 @@ export default function ReportForm() {
       </section>
 
       <section className="card space-y-3">
-        <h2 className="font-semibold">2. Where is it?</h2>
+        <h2 className="font-normal">2. Where is it?</h2>
         <div className="grid sm:grid-cols-2 gap-3">
           <div>
             <label className="label">City / town</label>
@@ -176,7 +176,7 @@ export default function ReportForm() {
       </section>
 
       <section className="card space-y-2">
-        <h2 className="font-semibold">3. Photos (optional, up to 3)</h2>
+        <h2 className="font-normal">3. Photos (optional, up to 3)</h2>
         <input type="file" accept="image/*" multiple capture="environment" onChange={addPhotos} disabled={photos.length >= 3} className="text-sm" />
         <div className="flex gap-2 flex-wrap">
           {photos.map((p, i) => (

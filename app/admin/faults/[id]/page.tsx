@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <FaultInfo f={f} photos={photos} staff />
           {pin && <FaultsMap pins={[pin]} height={260} />}
           <div className="card">
-            <h2 className="font-semibold mb-3">History</h2>
+            <h2 className="font-normal mb-3">History</h2>
             <Timeline events={events} />
           </div>
         </div>

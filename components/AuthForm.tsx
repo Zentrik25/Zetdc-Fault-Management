@@ -27,7 +27,7 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
 
   return (
     <form onSubmit={submit} className="card max-w-md mx-auto space-y-4">
-      <h1 className="text-2xl font-bold">{mode === "login" ? "Log in" : "Create your account"}</h1>
+      <h1 className="text-2xl font-light">{mode === "login" ? "Log in" : "Create your account"}</h1>
       {mode === "register" && (
         <>
           <div>

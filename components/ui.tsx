@@ -1,16 +1,16 @@
 import { PRIORITY_COLOR, STATUS_COLOR, STATUS_LABEL } from "@/lib/constants";
 
 export function StatusBadge({ status }: { status: string }) {
-  return <span className={`text-xs font-semibold rounded-full px-2.5 py-0.5 ${STATUS_COLOR[status] ?? ""}`}>{STATUS_LABEL[status] ?? status}</span>;
+  return <span className={`text-xs font-medium rounded px-2 py-0.5 ${STATUS_COLOR[status] ?? ""}`}>{STATUS_LABEL[status] ?? status}</span>;
 }
 export function PriorityBadge({ priority }: { priority: string }) {
-  return <span className={`text-xs font-semibold rounded-full px-2.5 py-0.5 capitalize ${PRIORITY_COLOR[priority] ?? ""}`}>{priority}</span>;
+  return <span className={`text-xs font-medium rounded px-2 py-0.5 capitalize ${PRIORITY_COLOR[priority] ?? ""}`}>{priority}</span>;
 }
 export function Stat({ label, value, tone = "" }: { label: string; value: React.ReactNode; tone?: string }) {
   return (
     <div className="card">
-      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{label}</div>
-      <div className={`text-3xl font-bold mt-1 ${tone}`}>{value}</div>
+      <div className="text-xs font-normal text-muted uppercase tracking-widest">{label}</div>
+      <div className={`text-3xl font-light tnum mt-1 ${tone}`}>{value}</div>
     </div>
   );
 }
