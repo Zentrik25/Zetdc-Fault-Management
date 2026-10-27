@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { send } from "./api";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
-  const router = useRouter();
   const [f, setF] = useState({ name: "", email: "", phone: "", password: "" });
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
@@ -21,8 +19,9 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
       setBusy(false);
       return;
     }
-    router.push(r.data.role === "customer" ? "/dashboard" : "/admin");
-    router.refresh();
+    // Full navigation: the browser may have cached a "redirect to /login" while prefetching
+    // protected links as a signed-out visitor, so a client-side push could land back on /login.
+    window.location.assign(r.data.role === "customer" ? "/dashboard" : "/admin");
   }
 
   return (

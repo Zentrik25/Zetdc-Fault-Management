@@ -1,9 +1,7 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { send } from "./api";
 
 export default function LogoutButton({ variant = "bar" }: { variant?: "bar" | "drawer" | "sidebar" }) {
-  const router = useRouter();
   return (
     <button
       className={
@@ -15,8 +13,7 @@ export default function LogoutButton({ variant = "bar" }: { variant?: "bar" | "d
       }
       onClick={async () => {
         await send("/api/auth/logout");
-        router.push("/");
-        router.refresh();
+        window.location.assign(window.location.origin + "/"); // full reload clears every cached signed-in page
       }}
     >
       {variant === "sidebar" && <span aria-hidden>↪️</span>}

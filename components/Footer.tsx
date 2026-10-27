@@ -34,7 +34,7 @@ export default function Footer() {
               <ul className="space-y-2 text-sm">
                 {c.links.map(([href, label]) => (
                   <li key={label}>
-                    <Link href={href} className="text-white/80 hover:text-white hover:underline underline-offset-4">{label}</Link>
+                    <Link href={href} prefetch={["/outages", "/load-shedding", "/login", "/register"].includes(href) ? undefined : false} className="text-white/80 hover:text-white hover:underline underline-offset-4">{label}</Link>
                   </li>
                 ))}
               </ul>
