@@ -11,6 +11,7 @@ Built with **Next.js (App Router) + TypeScript + Tailwind + Postgres**, ready to
 - Left sidebar navigation (hamburger drawer on phones), Settings page (profile, password)
 - Personal dashboard (open/resolved counts, active faults, recent updates, load shedding for your area)
 - Sign up / log in (email + password — no email or SMS verification)
+- Strong passwords enforced on sign-up, change and admin-created accounts: 10–72 characters with upper and lower case, a number and a symbol; common, sequential or repeated passwords and ones containing your name/email are rejected
 - Report a fault: type, danger flag, description, address, GPS or map pin, up to 3 photos
 - Duplicate detection: faults already reported nearby can be followed ("same problem") instead of duplicated
 - Ticket number (`ZET-2026-000001`) and live progress bar + timeline

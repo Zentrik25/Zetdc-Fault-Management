@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PRIORITIES } from "@/lib/constants";
 import { send } from "./api";
+import { PASSWORD_MIN } from "@/lib/password";
+import { PasswordChecklist } from "./PasswordChecklist";
 
 function Msg({ err, done }: { err: string; done: string }) {
   if (err) return <p className="text-sm text-red-600 bg-red-50 rounded p-2">{err}</p>;
@@ -69,8 +71,8 @@ export function PasswordForm() {
       <h2 className="text-lg font-normal">Change password</h2>
       <div className="grid sm:grid-cols-3 gap-3">
         <div><label className="label">Current password</label><input className="input" type="password" autoComplete="current-password" value={f.current} onChange={up("current")} required /></div>
-        <div><label className="label">New password</label><input className="input" type="password" autoComplete="new-password" minLength={6} value={f.next} onChange={up("next")} required /></div>
-        <div><label className="label">Confirm new password</label><input className="input" type="password" autoComplete="new-password" minLength={6} value={f.confirm} onChange={up("confirm")} required /></div>
+        <div><label className="label">New password</label><input className="input" type="password" autoComplete="new-password" minLength={PASSWORD_MIN} value={f.next} onChange={up("next")} required /><PasswordChecklist value={f.next} /></div>
+        <div><label className="label">Confirm new password</label><input className="input" type="password" autoComplete="new-password" minLength={PASSWORD_MIN} value={f.confirm} onChange={up("confirm")} required /></div>
       </div>
       <Msg err={err} done={done} />
       <button className="btn" disabled={busy}>{busy ? "Updating…" : "Update password"}</button>

@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { send } from "./api";
+import { PASSWORD_MIN } from "@/lib/password";
+import { PasswordChecklist } from "./PasswordChecklist";
 
 export function NewUserForm() {
   const router = useRouter();
@@ -27,7 +29,8 @@ export function NewUserForm() {
       <input className="input" placeholder="Full name" value={f.name} onChange={up("name")} required />
       <input className="input" type="email" placeholder="Email" value={f.email} onChange={up("email")} required />
       <input className="input" placeholder="Phone" value={f.phone} onChange={up("phone")} />
-      <input className="input" type="password" placeholder="Temporary password (6+)" value={f.password} onChange={up("password")} required minLength={6} />
+      <input className="input" type="password" placeholder="Temporary password" autoComplete="new-password" value={f.password} onChange={up("password")} required minLength={PASSWORD_MIN} />
+      <div className="sm:col-span-3 -mt-1"><PasswordChecklist value={f.password} /></div>
       <select className="input" value={f.role} onChange={up("role")}>
         <option value="technician">Technician</option>
         <option value="admin">Admin</option>

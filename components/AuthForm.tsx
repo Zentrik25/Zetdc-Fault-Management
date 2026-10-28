@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { send } from "./api";
+import { PASSWORD_MIN } from "@/lib/password";
+import { PasswordChecklist } from "./PasswordChecklist";
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const [f, setF] = useState({ name: "", email: "", phone: "", password: "" });
@@ -51,9 +53,10 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
           value={f.password}
           onChange={up("password")}
           required
-          minLength={6}
+          minLength={mode === "register" ? PASSWORD_MIN : undefined}
           autoComplete={mode === "login" ? "current-password" : "new-password"}
         />
+        {mode === "register" && <PasswordChecklist value={f.password} />}
       </div>
       {err && <p className="text-sm text-red-600 bg-red-50 rounded p-2">{err}</p>}
       <button className="btn w-full" disabled={busy}>

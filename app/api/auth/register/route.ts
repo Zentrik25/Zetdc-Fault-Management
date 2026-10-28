@@ -3,6 +3,7 @@ import { query, queryOne } from "@/lib/db";
 import { createSession } from "@/lib/auth";
 import { body, handler, HttpError, ok, str } from "@/lib/http";
 import { getSettings } from "@/lib/settings";
+import { passwordProblem } from "@/lib/password";
 
 export const POST = handler(async (req: Request) => {
   if (!(await getSettings()).registrationOpen) throw new HttpError(403, "New sign-ups are currently closed. Please contact ZETDC.");
@@ -12,7 +13,8 @@ export const POST = handler(async (req: Request) => {
   const phone = str(b.phone, "Phone number", { min: 7, max: 20, optional: true });
   const password = typeof b.password === "string" ? b.password : "";
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new HttpError(400, "Enter a valid email address.");
-  if (password.length < 6) throw new HttpError(400, "Password must be at least 6 characters.");
+  const weak = passwordProblem(password, [email, name]);
+  if (weak) throw new HttpError(400, weak);
   if (await queryOne("SELECT 1 FROM users WHERE email=$1", [email]))
     throw new HttpError(409, "An account with that email already exists.");
   const [u] = await query<{ id: number }>(
